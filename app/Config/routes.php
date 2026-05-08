@@ -1,0 +1,155 @@
+<?php
+declare(strict_types=1);
+
+// Rutas definidas manualmente para el sistema. Aquí puedes configurar:
+// - el método HTTP
+// - la URI
+// - el controlador y la acción
+// - la vista, cuando sea una ruta estática
+// - el modelo asociado para documentación o decisiones futuras.
+return [
+    [
+        'method' => 'GET',
+        'uri' => '/',
+        'controller' => 'Dashboard@index',
+        'model' => null,
+        'description' => 'Dashboard principal',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/auth/login',
+        'controller' => 'Auth@login',
+        'description' => 'Formulario de login',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/auth/doLogin',
+        'controller' => 'Auth@doLogin',
+        'description' => 'Procesar autenticación',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/auth/logout',
+        'controller' => 'Auth@logout',
+        'description' => 'Cerrar sesión',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/bienes',
+        'controller' => 'Bienes@index',
+        'model' => 'Bien',
+        'description' => 'Listar bienes',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/bienes/create',
+        'controller' => 'Bienes@create',
+        'model' => 'Bien',
+        'description' => 'Formulario de alta de bien',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/bienes/store',
+        'controller' => 'Bienes@store',
+        'model' => 'Bien',
+        'description' => 'Guardar bien',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/bienes/edit',
+        'controller' => 'Bienes@edit',
+        'model' => 'Bien',
+        'description' => 'Formulario de edición de bien',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/bienes/update',
+        'controller' => 'Bienes@update',
+        'model' => 'Bien',
+        'description' => 'Actualizar bien',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/bienes/delete',
+        'controller' => 'Bienes@delete',
+        'model' => 'Bien',
+        'description' => 'Eliminar bien',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/clasificacion',
+        'controller' => 'Clasificacion@index',
+        'model' => null,
+        'description' => 'Listado de clasificaciones',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/clasificacion/createCategoria',
+        'controller' => 'Clasificacion@createCategoria',
+        'model' => null,
+        'description' => 'Formulario crear categoría',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/clasificacion/storeCategoria',
+        'controller' => 'Clasificacion@storeCategoria',
+        'model' => null,
+        'description' => 'Guardar categoría',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/clasificacion/editCategoria',
+        'controller' => 'Clasificacion@editCategoria',
+        'model' => null,
+        'description' => 'Formulario editar categoría',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/clasificacion/updateCategoria',
+        'controller' => 'Clasificacion@updateCategoria',
+        'model' => null,
+        'description' => 'Actualizar categoría',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/clasificacion/deleteCategoria',
+        'controller' => 'Clasificacion@deleteCategoria',
+        'model' => null,
+        'description' => 'Eliminar categoría',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/users',
+        'controller' => 'Users@index',
+        'model' => 'User',
+        'description' => 'Listado de usuarios',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/users/create',
+        'controller' => 'Users@create',
+        'model' => 'User',
+        'description' => 'Formulario crear usuario',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/users/store',
+        'controller' => 'Users@store',
+        'model' => 'User',
+        'description' => 'Guardar usuario',
+    ],
+    [
+        'method' => 'GET',
+        'uri' => '/reportes',
+        'controller' => 'Reportes@index',
+        'model' => 'Bien',
+        'description' => 'Formulario de reportes',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/reportes/generate',
+        'controller' => 'Reportes@generate',
+        'model' => 'Bien',
+        'description' => 'Generar reporte CSV',
+    ],
+];
