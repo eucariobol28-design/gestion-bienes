@@ -1,0 +1,23 @@
+# Entorno
+.env
+vendor/
+
+# Base de datos
+storage/*.sqlite
+storage/*.db
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Tests
+phpunit.xml
+tests/

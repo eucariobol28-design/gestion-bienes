@@ -1,0 +1,190 @@
+MANUAL PARA CREAR Y CONFIGURAR UN MÓDULO NUEVO
+================================================
+
+Este sistema utiliza una arquitectura MVC simple con un router configurable en
+`app/Config/routes.php`. Para agregar un módulo nuevo, sigue estos pasos:
+
+1. DEFINIR LOS OBJETOS DEL MÓDULO
+-------------------------------
+
+   Un módulo típico está compuesto por:
+   - Controlador: `app/Controllers/NuevoModuloController.php`
+   - Modelo: `app/Models/NuevoModulo.php`
+   - Vistas: `app/Views/nuevo_modulo/*.php`
+   - Ruta(s): definición en `app/Config/routes.php`
+
+2. CREAR EL CONTROLADOR
+----------------------
+
+   - Crea un archivo en `app/Controllers/` con nombre `NuevoModuloController.php`.
+   - Declara el namespace `App\Controllers`.
+   - Extiende `App\Core\Controller`.
+   - Agrega métodos públicos que representen acciones: `index()`, `create()`,
+     `store()`, `edit()`, `update()`, `delete()`, etc.
+   - Usa `Auth::requireLogin()` si la ruta debe pedir sesión.
+   - Usa `Csrf::validate('token_id', $_POST['csrf_token'] ?? '')` en POST.
+   - Renderiza vistas con `$this->render('nuevo_modulo/index', ['title' => '...'])`.
+
+   Ejemplo mínimo:
+       <?php
+       declare(strict_types=1);
+
+       namespace App\Controllers;
+
+       use App\Core\Controller;
+       use App\Core\Auth;
+       use App\Models\NuevoModulo;
+
+       final class NuevoModuloController extends Controller
+       {
+           public function index(): void
+           {
+               Auth::requireLogin();
+               $items = NuevoModulo::all();
+               $this->render('nuevo_modulo/index', [
+                   'title' => 'Nuevo Módulo',
+                   'items' => $items,
+               ]);
+           }
+       }
+
+3. CREAR EL MODELO
+------------------
+
+   - Crea `app/Models/NuevoModulo.php`.
+   - Declara el namespace `App\Models`.
+   - El modelo debe usar el singleton de `App\Core\Database` para obtener PDO.
+   - Implementa métodos `all()`, `find($id)`, `create(array $data)`, `update($id, array $data)`,
+     `delete($id)` según sea necesario.
+   - Usa consultas preparadas para evitar inyección SQL.
+   - Ejemplo:
+       <?php
+       declare(strict_types=1);
+
+       namespace App\Models;
+
+       use App\Core\Database;
+
+       final class NuevoModulo
+       {
+           public static function all(): array
+           {
+               $pdo = Database::getInstance()->pdo();
+               $stmt = $pdo->query('SELECT * FROM nuevo_modulo');
+               return $stmt->fetchAll();
+           }
+       }
+
+4. CREAR LAS VISTAS
+-------------------
+
+   - Crea la carpeta `app/Views/nuevo_modulo/`.
+   - Agrega los archivos necesarios:
+     - `index.php` para la lista
+     - `create.php` para el formulario de alta
+     - `edit.php` para el formulario de edición
+   - Usa `htmlspecialchars(..., ENT_QUOTES, 'UTF-8')` para imprimir datos.
+   - Incluye CSRF input en formularios POST:
+       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf, ENT_QUOTES, 'UTF-8') ?>">
+   - Usa clases Bootstrap locales ya disponibles.
+
+5. AGREGAR LAS RUTAS EN app/Config/routes.php
+-------------------------------------------
+
+   - Abre `app/Config/routes.php`.
+   - Agrega un nuevo array por cada ruta.
+   - Debe incluir:
+     - `method`: GET o POST
+     - `uri`: la URI exacta
+     - `controller`: `NombreController@accion`
+     - `model` (opcional): nombre de modelo asociado
+     - `description` (opcional): explicación de la ruta
+
+   Ejemplo:
+       [
+           'method' => 'GET',
+           'uri' => '/nuevo_modulo',
+           'controller' => 'NuevoModuloController@index',
+           'model' => 'NuevoModulo',
+           'description' => 'Lista de registros del nuevo módulo',
+       ],
+       [
+           'method' => 'GET',
+           'uri' => '/nuevo_modulo/create',
+           'controller' => 'NuevoModuloController@create',
+           'model' => 'NuevoModulo',
+           'description' => 'Formulario para crear registro',
+       ],
+       [
+           'method' => 'POST',
+           'uri' => '/nuevo_modulo/store',
+           'controller' => 'NuevoModuloController@store',
+           'model' => 'NuevoModulo',
+           'description' => 'Guardar nuevo registro',
+       ],
+
+   - Si necesitas rutas con parámetros dinámicos, también puedes usar:
+       '/nuevo_modulo/{id}'
+     y el router extraerá el valor `id` como parámetro.
+
+6. CREAR LA TABLA EN LA BASE DE DATOS
+------------------------------------
+
+   - Agrega la tabla nueva en `app/migrate.php`.
+   - Usa el mismo estilo SQL que las tablas existentes.
+   - Inserta datos semilla si quieres.
+   - Si usas SQLite, verifica que `storage/database.sqlite` exista.
+
+   Ejemplo:
+       $pdo->exec('CREATE TABLE IF NOT EXISTS nuevo_modulo (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           nombre TEXT NOT NULL,
+           descripcion TEXT NOT NULL
+       )');
+
+7. PROBAR LA RUTA
+-----------------
+
+   - Inicia el servidor local: `php -S localhost:8000 -t public`
+   - Accede a la ruta configurada, por ejemplo `/nuevo_modulo`.
+   - Si hay error 404, revisa que:
+       * la ruta exista en `app/Config/routes.php`
+       * el controlador exista y la acción esté definida
+       * el método HTTP sea el correcto
+   - Si hay errores PHP, revisa los logs o ejecuta `php -l` en los archivos modificados.
+
+8. CONSEJOS DE ESCALABILIDAD
+---------------------------
+
+   - Mantén nombres de controladores y modelos consistentes.
+   - Usa rutas explícitas en `app/Config/routes.php` para mejor control.
+   - Para módulos grandes, agrega subdirectorios en `app/Views/`.
+   - Es recomendable crear un modelo por tabla y un controlador por entidad.
+   - Evita usar rutas automáticamente generadas si quieres más control.
+
+9. EJEMPLO RÁPIDO DE NUEVO MÓDULO
+--------------------------------
+
+   1) Crear modelo `app/Models/Equipo.php`.
+   2) Crear controlador `app/Controllers/EquipoController.php`.
+   3) Crear vistas en `app/Views/equipo/`.
+   4) Agregar rutas:
+       [
+           'method' => 'GET',
+           'uri' => '/equipo',
+           'controller' => 'EquipoController@index',
+           'model' => 'Equipo',
+           'description' => 'Lista de equipos',
+       ],
+   5) Añadir tabla en `app/migrate.php`.
+
+10. VERIFICACIÓN FINAL
+----------------------
+
+   - Ejecuta `php -l` en los archivos nuevos.
+   - Abre el sistema y navega a la ruta.
+   - Comprueba que el módulo aparece solo si estás autenticado,
+     si corresponde a una ruta protegida.
+
+Este archivo queda en la raíz del proyecto para que cualquier desarrollador
+pueda revisar cómo agregar un nuevo módulo y cómo configurarlo en este sistema.

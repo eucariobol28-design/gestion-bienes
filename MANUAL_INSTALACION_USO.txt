@@ -1,0 +1,153 @@
+MANUAL DE INSTALACIÓN Y USO (Windows y Linux)
+=================================================
+
+Este documento explica cómo levantar la aplicación de Gestión de Bienes.
+
+Requisitos generales
+---------------------
+- PHP 8.0 o superior
+- Extensión PDO habilitada
+- Extensión PDO_SQLITE (si usas SQLite)
+- Composer (recomendado)
+- Un servidor web (Apache/Nginx) o PHP embebido
+
+La aplicación usa:
+- Router MVC en `app/Config/routes.php`
+- Entrada en `public/index.php`
+- Base de datos SQLite por defecto (archivo en `storage/.../database.sqlite`)
+
+-------------------------------------------------
+1) INSTALACIÓN EN WINDOWS
+-------------------------------------------------
+
+1.1. Preparar carpetas y código
+- Clona o copia el proyecto a una carpeta local.
+  Ejemplo (si usas Git):
+  - Abre PowerShell en la carpeta donde guardas proyectos
+  - Ejecuta:
+    git clone <URL-DEL-REPOSITORIO>
+    cd app-web-gestionde-bienes
+
+1.2. Instalar dependencias con Composer (opcional pero recomendado)
+- Verifica que Composer esté instalado:
+  composer --version
+
+- Ejecuta:
+  composer install
+
+1.3. Crear base de datos (migraciones)
+- Desde la raíz del proyecto (donde está `app/migrate.php`), ejecuta:
+  php app/migrate.php
+
+1.4. Servidor de desarrollo (PHP embebido)
+- Ejecuta:
+  php -S localhost:8000 -t public
+
+- Abre el navegador en:
+  http://localhost:8000
+
+1.5. Credenciales de ejemplo
+- Según el README del proyecto:
+  - Email: admin@aldea.local
+  - Contraseña: Admin1234!
+
+1.6. Notas en Windows
+- Si aparece error por permisos de escritura, asegúrate de tener acceso de escritura a la carpeta `storage/`.
+- Asegúrate de que PHP tenga habilitados PDO y PDO_SQLITE.
+
+-------------------------------------------------
+2) INSTALACIÓN EN LINUX
+-------------------------------------------------
+
+2.1. Clonar o copiar el repositorio
+- Desde la carpeta donde guardarás el proyecto:
+  git clone <URL-DEL-REPOSITORIO>
+  cd app-web-gestionde-bienes
+
+2.2. Instalar dependencias
+- Verifica composer:
+  composer --version
+
+- Ejecuta:
+  composer install
+
+2.3. Crear base de datos
+- Desde la raíz del proyecto:
+  php app/migrate.php
+
+2.4. Servidor de desarrollo (PHP embebido)
+- Ejecuta:
+  php -S localhost:8000 -t public
+
+- Abre:
+  http://localhost:8000
+
+2.5. Notas en Linux
+- Asegúrate de que la extensión PDO_SQLITE esté instalada/activa.
+- Si hay errores al crear el archivo SQLite, verifica permisos de escritura en `storage/`.
+
+-------------------------------------------------
+3) USO DE LA APLICACIÓN
+-------------------------------------------------
+
+3.1. Rutas principales
+Las rutas están definidas en `app/Config/routes.php`.
+Ejemplos:
+- `/` -> Dashboard
+- `/auth/login` -> Pantalla de login
+- `/bienes` -> Bienes (listado)
+- `/clasificacion` -> Clasificación/Categorías
+- `/users` -> Usuarios
+- `/reportes` -> Reportes (genera CSV)
+
+3.2. Flujo típico
+- Acceder a `/auth/login`
+- Iniciar sesión
+- Usar menú/navegación para:
+  - Gestionar bienes (CRUD)
+  - Gestionar categorías/clasificación
+  - Gestionar usuarios (según permisos/rol)
+  - Generar reportes CSV
+
+3.3. CSRF
+- Los formularios POST usan protección CSRF con la clase `app/Core/Csrf.php`.
+- Si haces cambios en formularios, respeta el token CSRF.
+
+-------------------------------------------------
+4) SOLUCIÓN DE PROBLEMAS (RÁPIDO)
+-------------------------------------------------
+
+4.1. Error 404
+- Verifica que la ruta exista en `app/Config/routes.php`.
+- Confirma que el servidor está apuntando a `public/`:
+  php -S localhost:8000 -t public
+
+4.2. Error de base de datos / SQLite no encontrado
+- Ejecuta:
+  php app/migrate.php
+- Verifica que exista el archivo SQLite dentro de `storage/`.
+
+4.3. Error 500
+- Revisa el log del servidor (PHP error_log / consola).
+- Confirma que el servidor tenga permisos de escritura para `storage/`.
+
+-------------------------------------------------
+5) COMANDOS ÚTILES
+-------------------------------------------------
+
+- Instalar dependencias:
+  composer install
+
+- Migrar / crear BD:
+  php app/migrate.php
+
+- Levantar servidor dev:
+  php -S localhost:8000 -t public
+
+- Lint/validación (si el proyecto lo soporta vía composer):
+  composer lint
+  composer test
+
+Fin del manual
+--------------
+

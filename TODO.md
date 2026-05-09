@@ -1,0 +1,17 @@
+- [x] Crear estructura MVC completa (public/app/Core/Controllers/Models/Views)
+- [x] Implementar router principal index.php + .htaccess (opcional para URLs amigables)
+- [x] Implementar DB con SQLite (PDO) y migración/creación de tablas
+- [x] Implementar Auth (login/logout) con password_hash/password_verify + roles (admin/operador)
+- [x] Implementar CSRF token en formularios
+- [x] Implementar CRUD de Bienes (Nombre, Código, Ubicación, Estado, Responsable) con prepared statements
+- [x] Implementar filtrado de XSS en vistas (escape HTML)
+- [x] Implementar Dashboard con estadísticas simples
+- [x] Agregar Bootstrap 5 vía CDN y vistas limpias
+- [x] Probar en servidor PHP embebido (php -S)
+- [x] Agregar validación robusta con Validator class
+- [x] Refactorizar DB a singleton
+- [x] Agregar manejo de errores y página 500
+- [x] Configurar variables de entorno con .env
+- [x] Agregar composer.json y dependencias
+- [x] Crear README.md con documentación
+

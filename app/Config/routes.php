@@ -140,6 +140,28 @@ return [
     ],
     [
         'method' => 'GET',
+        'uri' => '/users/edit',
+        'controller' => 'Users@edit',
+        'model' => 'User',
+        'description' => 'Formulario editar usuario',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/users/update',
+        'controller' => 'Users@update',
+        'model' => 'User',
+        'description' => 'Actualizar usuario',
+    ],
+    [
+        'method' => 'POST',
+        'uri' => '/users/delete',
+        'controller' => 'Users@delete',
+        'model' => 'User',
+        'description' => 'Eliminar usuario',
+    ],
+    
+    [
+        'method' => 'GET',
         'uri' => '/reportes',
         'controller' => 'Reportes@index',
         'model' => 'Bien',
