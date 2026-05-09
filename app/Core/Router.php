@@ -159,10 +159,21 @@ final class Router // Define la clase Router como final (no heredable), responsa
     private function renderView(string $view, array $data = []): void
     {
         extract($data, EXTR_SKIP);
+
+        // Vistas que requieren un layout independiente (sin header/footer del dashboard).
+        // Ej: auth/login debe renderizarse como página standalone.
+        if ($view === 'auth/login') {
+            require __DIR__ . '/../Views/layouts/login_header.php';
+            require __DIR__ . '/../Views/' . $view . '.php';
+            require __DIR__ . '/../Views/layouts/login_footer.php';
+            return;
+        }
+
         require __DIR__ . '/../Views/layouts/header.php';
         require __DIR__ . '/../Views/' . $view . '.php';
         require __DIR__ . '/../Views/layouts/footer.php';
     }
+
 
     private function studly(string $value): string // Método privado para convertir strings a StudlyCase (ej. 'bien' -> 'Bien').
     {
