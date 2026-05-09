@@ -83,3 +83,4 @@ storage/                   # Base de datos SQLite
 
 [MIT License](LICENSE)</content>
 <parameter name="filePath">/home/infocentro/Escritorio/app-web-gestionde-bienes/README.md# app-gestion-bienes
+# gestion-bienes
