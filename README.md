@@ -85,3 +85,4 @@ storage/                   # Base de datos SQLite
 <parameter name="filePath">/home/infocentro/Escritorio/app-web-gestionde-bienes/README.md# app-gestion-bienes
 # gestion-bienes
 # gestion-bienes
+# gestion-bienes
