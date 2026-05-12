@@ -9,12 +9,16 @@ abstract class Controller // Clase abstracta base para todos los controladores, 
     {
         extract($data, EXTR_SKIP); // Extrae variables del array $data al scope local (con EXTR_SKIP para evitar sobrescribir).
 
-        // header
-        require __DIR__ . '/../Views/' . $layout . '.php'; // Incluye el layout de header.
+        if ($layout !== '') {
+            // header
+            require __DIR__ . '/../Views/' . $layout . '.php'; // Incluye el layout de header.
+        }
         // view
         require __DIR__ . '/../Views/' . $view . '.php'; // Incluye la vista específica.
-        // footer
-        require __DIR__ . '/../Views/layouts/footer.php'; // Incluye el footer.
+        if ($layout !== '') {
+            // footer
+            require __DIR__ . '/../Views/layouts/footer.php'; // Incluye el footer.
+        }
     }
 
     protected function flash(string $type, string $message): void // Almacena un mensaje flash en sesión (para mostrar una vez).

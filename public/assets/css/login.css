@@ -1,0 +1,65 @@
+/* Estilos del login (local) - basado en la maqueta provista */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.login-page {
+  background: #f3f4f6;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.bg-image {
+  background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: none;
+}
+
+.loader {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mini utilidades para no depender de Tailwind */
+.text-slate-200 { color: rgba(226, 232, 240, 1); }
+.opacity-80 { opacity: 0.8; }
+
+/* Aproxima el overlay bg-slate-900/60 */
+.bg-slate-900\/60 { background: rgba(15, 23, 42, 0.6); }
+
+/* Espacios para el layout sin Tailwind */
+.-space-x-2 { margin-left: -8px; }
+
+/* Nota: el formulario usa clases tipo Tailwind, pero sin tailwind no aplicarán.
+   Si deseas 1:1 perfecto, se requiere integrar Tailwind local.
+   Por ahora se mantiene el aspecto con Bootstrap + estilos definidos aquí. */
+

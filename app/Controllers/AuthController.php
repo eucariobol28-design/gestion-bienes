@@ -19,7 +19,7 @@ final class AuthController extends Controller
         $this->render('auth/login', [
             'title' => 'Iniciar sesión',
             'csrf' => Csrf::token('login'),
-        ]);
+        ], ''); // Layout vacío para login completo
     }
 
     public function doLogin(): void

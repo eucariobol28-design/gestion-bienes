@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1); // Modo estricto.
 
-// Cargar variables de entorno
-if (file_exists(__DIR__ . '/../.env')) { // Si existe .env en raíz.
-    require_once __DIR__ . '/../vendor/autoload.php'; // Carga autoloader de Composer (para Dotenv).
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../'); // Crea Dotenv.
-    $dotenv->load(); // Carga variables env.
+// Cargar autoloader de Composer siempre.
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Cargar variables de entorno si existe .env
+if (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
 }
 
 require_once __DIR__ . '/Config/config.php'; // Carga configuración.
