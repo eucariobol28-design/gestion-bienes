@@ -23,6 +23,8 @@ final class ClasificacionController extends Controller // Controlador final para
             'title' => 'Clasificación',
             'categorias' => $categorias,
             'ubicaciones' => $ubicaciones,
+            'csrf_categoria_delete' => Csrf::token('categoria_delete'),
+            'csrf_ubicacion_delete' => Csrf::token('ubicacion_delete'),
         ]);
     }
 
@@ -132,7 +134,114 @@ final class ClasificacionController extends Controller // Controlador final para
         $this->flash('success', 'Categoría eliminada');
         $this->redirect('/clasificacion');
     }
+    public function createUbicacion(): void
+    {
+        Auth::requireRole('admin');
+        $this->render('clasificacion/create_ubicacion', [
+            'title' => 'Crear Ubicación',
+            'csrf' => Csrf::token('ubicacion_create'),
+        ]);
+    }
 
-    // Métodos similares para Ubicaciones (createUbicacion, storeUbicacion, etc.) - Implementar de forma análoga.
-    // Para brevedad, asumir que se replican los métodos para ubicaciones con Ubicacion:: en lugar de Categoria::.
+    public function storeUbicacion(): void
+    {
+        Auth::requireRole('admin');
+
+        $token = $_POST['csrf_token'] ?? null;
+        if (!Csrf::validate('ubicacion_create', $token)) {
+            http_response_code(419);
+            echo 'CSRF inválido';
+            exit;
+        }
+        Csrf::regenerate('ubicacion_create');
+
+        $data = ['nombre' => trim((string)($_POST['nombre'] ?? ''))];
+
+        $validator = new Validator();
+        $rules = ['nombre' => ['required', 'string', 'max:255', 'unique:ubicaciones:nombre']];
+        if (!$validator->validate($data, $rules)) {
+            $this->flash('warning', implode('<br>', array_merge(...array_values($validator->errors()))));
+            $this->redirect('/clasificacion/createUbicacion');
+            return;
+        }
+
+        Ubicacion::create($data);
+        $this->flash('success', 'Ubicación creada');
+        $this->redirect('/clasificacion');
+    }
+
+    public function editUbicacion(): void
+    {
+        Auth::requireRole('admin');
+
+        $id = (int)($_GET['id'] ?? 0);
+        $ubicacion = Ubicacion::find($id);
+        if (!$ubicacion) {
+            http_response_code(404);
+            echo 'Ubicación no encontrada';
+            return;
+        }
+
+        $this->render('clasificacion/edit_ubicacion', [
+            'title' => 'Editar Ubicación',
+            'csrf' => Csrf::token('ubicacion_edit'),
+            'ubicacion' => $ubicacion,
+        ]);
+    }
+
+    public function updateUbicacion(): void
+    {
+        Auth::requireRole('admin');
+
+        $id = (int)($_POST['id'] ?? 0);
+        $token = $_POST['csrf_token'] ?? null;
+        if (!Csrf::validate('ubicacion_edit', $token)) {
+            http_response_code(419);
+            echo 'CSRF inválido';
+            exit;
+        }
+        Csrf::regenerate('ubicacion_edit');
+
+        $data = ['nombre' => trim((string)($_POST['nombre'] ?? ''))];
+
+        $validator = new Validator();
+        $rules = ['nombre' => ['required', 'string', 'max:255']];
+        $ubicacion = Ubicacion::find($id);
+        if (!$ubicacion) {
+            http_response_code(404);
+            echo 'Ubicación no encontrada';
+            return;
+        }
+        if ($data['nombre'] !== $ubicacion['nombre']) {
+            $rules['nombre'][] = 'unique:ubicaciones:nombre';
+        }
+
+        if (!$validator->validate($data, $rules)) {
+            $this->flash('warning', implode('<br>', array_merge(...array_values($validator->errors()))));
+            $this->redirect('/clasificacion/editUbicacion?id=' . $id);
+            return;
+        }
+
+        Ubicacion::update($id, $data);
+        $this->flash('success', 'Ubicación actualizada');
+        $this->redirect('/clasificacion');
+    }
+
+    public function deleteUbicacion(): void
+    {
+        Auth::requireRole('admin');
+
+        $id = (int)($_POST['id'] ?? 0);
+        $token = $_POST['csrf_token'] ?? null;
+        if (!Csrf::validate('ubicacion_delete', $token)) {
+            http_response_code(419);
+            echo 'CSRF inválido';
+            exit;
+        }
+        Csrf::regenerate('ubicacion_delete');
+
+        Ubicacion::delete($id);
+        $this->flash('success', 'Ubicación eliminada');
+        $this->redirect('/clasificacion');
+    }
 }

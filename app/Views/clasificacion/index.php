@@ -19,7 +19,7 @@ $ubicaciones = $ubicaciones ?? []; // Array de ubicaciones.
             <a href="/clasificacion/editCategoria?id=<?= $cat['id'] ?>" class="btn btn-sm btn-outline-primary">Editar</a>
             <form method="post" action="/clasificacion/deleteCategoria" class="d-inline">
               <input type="hidden" name="id" value="<?= $cat['id'] ?>">
-              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf ?? '', ENT_QUOTES, 'UTF-8') ?>">
+              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_categoria_delete ?? '', ENT_QUOTES, 'UTF-8') ?>">
               <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar?')">Eliminar</button>
             </form>
           </div>
@@ -39,7 +39,7 @@ $ubicaciones = $ubicaciones ?? []; // Array de ubicaciones.
             <a href="/clasificacion/editUbicacion?id=<?= $ubi['id'] ?>" class="btn btn-sm btn-outline-primary">Editar</a>
             <form method="post" action="/clasificacion/deleteUbicacion" class="d-inline">
               <input type="hidden" name="id" value="<?= $ubi['id'] ?>">
-              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf ?? '', ENT_QUOTES, 'UTF-8') ?>">
+              <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_ubicacion_delete ?? '', ENT_QUOTES, 'UTF-8') ?>">
               <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Eliminar?')">Eliminar</button>
             </form>
           </div>

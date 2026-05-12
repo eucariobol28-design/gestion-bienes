@@ -15,8 +15,10 @@
   <?php if(isset($_SESSION['user'])): ?>
   <!-- Sidebar -->
   <nav id="sidebar" class="bg-dark text-white">
-    <div class="sidebar-header p-3">
-      <h5 class="mb-0">🏛️ Aldea Universitaria</h5>
+    <div class="sidebar-header p-3 text-center">
+      <img src="/assets/images/mision%20sucre.jpeg" alt="Logo Misión Sucre" class="rounded-circle mb-2" style="width: 48px; height: 48px;">
+      <h5 class="mb-0">Aldea Universitaria</h5>
+      <small class="text-muted">Carlos Emiliano Salom</small>
     </div>
     <ul class="list-unstyled components p-2">
       <li><a href="/">📊 Dashboard</a></li>
@@ -40,6 +42,10 @@
           ☰
         </button>
         <?php endif; ?>
+        <div class="d-flex align-items-center">
+          <img src="/assets/images/mision%20sucre.jpeg" alt="Logo Misión Sucre" class="rounded-circle me-2" style="width: 32px; height: 32px;">
+          <span class="fw-bold text-primary">Aldea Universitaria</span>
+        </div>
         <div class="ms-auto d-flex align-items-center">
           <?php if(isset($_SESSION['user'])): ?>
           <span class="me-3 text-muted">Hola, <?= htmlspecialchars($_SESSION['user']['nombre'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>

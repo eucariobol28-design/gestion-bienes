@@ -161,19 +161,16 @@ final class UsersController extends Controller // Controlador para usuarios.
             return;
         }
 
-        $updateFields = 'nombre = :nombre, email = :email, rol = :rol';
-        $params = [
-            ':nombre' => $data['nombre'],
-            ':email' => $data['email'],
-            ':rol' => $data['rol'],
-            ':id' => $id,
+        $updateData = [
+            'nombre' => $data['nombre'],
+            'email' => $data['email'],
+            'rol' => $data['rol'],
         ];
         if ($data['password'] !== '') {
-            $updateFields .= ', password_hash = :ph';
-            $params[':ph'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            $updateData['password_hash'] = password_hash($data['password'], PASSWORD_DEFAULT);
         }
 
-        User::update($id, array_merge($data, ['password_hash' => $data['password'] !== '' ? password_hash($data['password'], PASSWORD_DEFAULT) : '']));
+        User::update($id, $updateData);
 
         $this->flash('success', 'Usuario actualizado');
         $this->redirect('/users');

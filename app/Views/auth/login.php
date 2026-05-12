@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrolos Emiliano Salón de la Misión Sucre - Gestión de Bienes</title>
+    <title>Carlos Emiliano Salóm de la Misión Sucre - Gestión de Bienes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -64,11 +64,11 @@
         <div class="hidden md:flex md:w-1/2 bg-image relative">
             <div class="absolute inset-0 bg-slate-900/60 flex flex-col justify-center p-12 text-white">
                 <div class="mb-6">
-                    <i class="fas fa-city text-5xl"></i>
+                    <img src="/assets/images/mision%20sucre.jpeg" alt="Logo Misión Sucre" class="w-20 h-20 rounded-full mx-auto mb-4">
                 </div>
-                <h1 class="text-4xl font-bold mb-4">Carrolos Emiliano</h1>
+                <h1 class="text-4xl font-bold mb-4">Aldea  Universitaria  <br>Carlos Emiliano Salom</h1>
                 <p class="text-lg text-slate-200">
-                    La plataforma líder para la administración inteligente de bienes del Salón de la Misión Sucre.
+                    La plataforma líder para la administración inteligente de bienes  de la Misión Sucre.
                 </p>
                 <div class="mt-8 flex items-center gap-4 text-sm opacity-80">
                     <div class="flex -space-x-2">
@@ -76,7 +76,7 @@
                         <div class="w-8 h-8 rounded-full bg-emerald-500 border-2 border-white"></div>
                         <div class="w-8 h-8 rounded-full bg-orange-500 border-2 border-white"></div>
                     </div>
-                    <span>Únete a más de 2,000 gestores profesionales.</span>
+                    
                 </div>
             </div>
         </div>
@@ -84,13 +84,11 @@
         <!-- Lado Derecho: Formulario de Login -->
         <div class="w-full md:w-1/2 p-8 lg:p-12">
             <div class="max-w-md mx-auto">
-                    <div class="md:hidden mb-8 text-center">
-                        <i class="fas fa-city text-blue-600 text-4xl mb-2"></i>
-                        <h2 class="text-2xl font-bold text-gray-800">Carrolos Emiliano</h2>
-                        <p class="text-sm text-gray-500">Salón de la Misión Sucre</p>
-                    </div>
-
-                <div class="mb-10">
+                <div class="md:hidden mb-8 text-center">
+                    <img src="/assets/images/mision%20sucre.jpeg" alt="Logo Misión Sucre" class="w-16 h-16 rounded-full mx-auto mb-2">
+                    <h2 class="text-2xl font-bold text-gray-800">Carrolos Emiliano</h2>
+                    <p class="text-sm text-gray-500">Salón de la Misión Sucre</p>
+                </div>                <div class="mb-10">
                     <h2 class="text-3xl font-bold text-gray-800 mb-2">Bienvenido</h2>
                     <p class="text-gray-500">Ingrese sus credenciales para acceder al sistema.</p>
                 </div>
