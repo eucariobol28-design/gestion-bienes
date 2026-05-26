@@ -1,0 +1,159 @@
+INFORME DE PROYECTO DE GRADO
+============================
+
+TÍTULO:
+Registro y Control de Bienes de la Aldea Universitaria
+
+1. ANTECEDENTES
+----------------
+En las instituciones académicas, la gestión de los bienes materiales suele llevarse a cabo de forma manual o con sistemas parciales, lo que genera inconsistencias en el registro, pérdida de información y dificultades para controlar el ciclo de vida de los activos. La Aldea Universitaria requiere una herramienta que centralice datos, permita el control por roles y garantice seguridad en las operaciones.
+
+2. PLANTEAMIENTO DEL PROBLEMA
+-----------------------------
+- Falta de un sistema centralizado para registrar bienes y sus movimientos.
+- Dificultad para localizar bienes por código, ubicación, categoría o estado.
+- Riesgo de accesos no autorizados debido a ausencia de roles bien definidos.
+- Exposición a ataques CSRF si los formularios no cuentan con protección.
+- Imposibilidad de generar reportes automáticos desde un único repositorio de datos.
+
+3. JUSTIFICACIÓN
+----------------
+La creación de una aplicación web para la gestión de bienes aporta:
+- Centralización de la información de inventario.
+- Control de acceso mediante autenticación y autorización por roles.
+- Validación de datos para reducir inconsistencias.
+- Protección de formularios con tokens CSRF.
+- Generación de reportes descargables que facilitan análisis, auditoría y toma de decisiones.
+
+4. OBJETIVOS
+----------------
+4.1 Objetivo general
+Desarrollar una aplicación web que facilite el registro, control y reporte de bienes de la Aldea Universitaria, con seguridad, roles y gestión de datos confiable.
+
+4.2 Objetivos específicos
+- Implementar arquitectura MVC con separación clara entre controladores, modelos y vistas.
+- Desarrollar autenticación segura de usuarios y manejo de sesión.
+- Implementar autorización por roles: admin y operador.
+- Crear funcionalidades CRUD para bienes, categorías y ubicaciones.
+- Implementar un dashboard con estadísticas básicas.
+- Añadir protección CSRF en los formularios.
+- Permitir migración de la base de datos SQLite a MySQL.
+- Generar reportes descargables en CSV, con opción de extensión a PDF/XLSX.
+
+5. ALCANCE
+-----------
+5.1 Alcance funcional
+- Módulo de autenticación: login y logout por email/contraseña.
+- Control de roles: admin con acceso total y operador con permisos limitados.
+- CRUD de bienes: registrar, listar, editar y eliminar.
+- Módulo de clasificación: categorías y ubicaciones.
+- Dashboard con indicadores de bienes.
+- Módulo de reportes con exportación.
+- Gestión de usuarios por admin.
+
+5.2 Alcance no funcional
+- Interfaz responsiva con Bootstrap 5.
+- Persistencia mediante PDO y SQLite, con soporte para MySQL.
+- Seguridad básica: CSRF y escape de salidas.
+- Arquitectura mantenible y modular.
+
+5.3 Exclusiones
+- Auditoría detallada de cambio de datos.
+- Integraciones externas con otros sistemas.
+- Autenticación multifactor.
+
+6. METODOLOGÍA
+----------------
+Se propone una metodología ágil tipo Scrum para el desarrollo del proyecto. El trabajo se organiza en sprints con entrega incremental, revisión de resultados y adaptación de requisitos.
+
+6.1 Roles Scrum
+- Product Owner: prioriza requisitos y define el alcance.
+- Scrum Master: facilita el proceso y elimina impedimentos.
+- Equipo de Desarrollo: implementa la solución y valida la calidad.
+
+6.2 Ceremonias Scrum
+- Sprint Planning: planificación del sprint.
+- Daily Scrum: seguimiento diario.
+- Sprint Review: presentación de resultados.
+- Sprint Retrospective: mejora continua.
+
+7. DISEÑO TÉCNICO
+--------------------
+7.1 Arquitectura
+La aplicación usa arquitectura MVC con los siguientes componentes:
+- `public/index.php`: punto de entrada.
+- `app/Config/config.php`: configuración de la aplicación.
+- `app/Core/Router.php`: manejo de rutas.
+- `app/Controllers/`: lógica de negocio.
+- `app/Models/`: acceso y persistencia de datos.
+- `app/Views/`: interfaz de usuario.
+
+7.2 Seguridad
+- Uso de `App\Core\Auth` para gestionar sesiones y roles.
+- Validación CSRF con `App\Core\Csrf` en formularios POST.
+- Escapado de salida con `htmlspecialchars` en vistas.
+
+7.3 Persistencia
+- Base de datos por defecto SQLite en `storage/database.sqlite`.
+- Migraciones creadas en `app/migrate.php`.
+- Opción de cambiar a MySQL mediante `.env` y `DB_DRIVER=mysql`.
+
+8. PLAN DE TRABAJO
+--------------------
+Sprint 1: Fundamentos
+- Configurar entorno y autoload.
+- Implementar conexión a base de datos.
+- Crear login, logout y control de sesiones.
+- Añadir autorización por roles.
+
+Sprint 2: CRUD de bienes
+- Crear módulos de bienes.
+- Validar campos y proteger formularios.
+- Probar creación, edición y eliminación.
+
+Sprint 3: Clasificación y dashboard
+- Implementar categorías y ubicaciones.
+- Crear dashboard de estadísticas.
+- Consolidar filtros y búsquedas.
+
+Sprint 4: Reportes y cierre
+- Generar reportes CSV.
+- Documentar instalación y uso.
+- Revisar seguridad y usabilidad.
+
+9. CRONOGRAMA Y RECURSOS
+-------------------------
+9.1 Cronograma general (propuesta)
+- Semana 1-2: análisis y diseño.
+- Semana 3-4: arquitectura y seguridad.
+- Semana 5-6: módulo bienes.
+- Semana 7-8: dashboard, clasificación y reportes.
+- Semana 9-10: pruebas, ajustes y documentación.
+
+9.2 Recursos
+- PHP 8 o superior.
+- Composer para dependencias.
+- Servidor web local o PHP embebido.
+- Base de datos SQLite / MySQL.
+
+10. RESULTADOS ESPERADOS
+-------------------------
+- Aplicación funcional para gestión de bienes.
+- Usuarios con roles admin/operador.
+- Base de datos migrable y consistente.
+- Reportes descargables.
+- Interfaz sencilla y segura.
+
+11. CONCLUSIONES
+------------------
+Este proyecto ofrece una solución viable para la Aldea Universitaria, mejorando control, seguridad y trazabilidad del inventario. La arquitectura MVC y el enfoque ágil permiten un desarrollo ordenado, con posibilidad de evolución hacia nuevas funcionalidades y mayor integridad de datos.
+
+12. ANEXOS
+------------------
+- Documentación técnica generada en `README.md`.
+- Migraciones en `app/migrate.php`.
+- Control de acceso en `app/Core/Auth.php`.
+- Validación en `app/Core/Validator.php`.
+- Vistas en `app/Views/users/` y `app/Views/bienes/`.
+
+FIN DEL INFORME

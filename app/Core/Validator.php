@@ -31,8 +31,9 @@ final class Validator // Clase final para validar datos de formularios con regla
 
     private function checkRule(string $field, $value, string $rule): bool // Verifica una regla específica.
     {
-        [$ruleName, $param] = explode(':', $rule . ':', 2); // Separa nombre de regla y parámetro (ej. 'max:255').
-        $param = $param ?: null; // Parámetro o null.
+        $parts = explode(':', $rule, 2); // Separa nombre de regla y parámetro (ej. 'max:255').
+        $ruleName = $parts[0];
+        $param = $parts[1] ?? null; // Parámetro o null.
 
         switch ($ruleName) { // Evalúa el tipo de regla.
             case 'required': // Campo obligatorio.
